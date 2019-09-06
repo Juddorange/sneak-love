@@ -7,6 +7,19 @@ router.get('/', (req, res) => {
 	res.render('index');
 });
 
+router.post('/sneakers/tags', (req, res) => {
+	let query = {};
+	if (req.body.tags.length) {
+		query = { id_tags: req.body.tags };
+	}
+	sneakerModel
+		.find(query)
+		.then((sneakers) => {
+			res.send(sneakers);
+		})
+		.catch((err) => res.send({ err }));
+});
+
 router.get('/sneakers/:cat', (req, res) => {
 	if (req.params.cat === 'collection') {
 		sneakerModel
